@@ -2,9 +2,9 @@
 
 Implementado:
 
--Database Migrations
--Patrón Unit of Work
--Patrón Repository
--Patrón Dto
--Patrón Notification
--Patrón Assembler
+- Database Migrations
+- Patrón Unit of Work
+- Patrón Repository
+- Patrón Dto
+- Patrón Notification
+- Patrón Assembler
