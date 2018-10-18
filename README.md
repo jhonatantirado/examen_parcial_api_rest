@@ -1,8 +1,10 @@
-# lab01_api_rest
+# Examen Parcial DYCS
 
 Implementado:
-Database Migrations
-Patrón Unit of Work
-Patrón Dto
-Patrón Notification
-Patrón Repository
+
+-Database Migrations
+-Patrón Unit of Work
+-Patrón Repository
+-Patrón Dto
+-Patrón Notification
+-Patrón Assembler
