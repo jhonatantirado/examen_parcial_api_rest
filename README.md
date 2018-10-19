@@ -9,3 +9,4 @@ Implementado:
 - Patrón Notification
 - Patrón Assembler
 - Patrón Money
+- Patrón Specification
