@@ -14,6 +14,8 @@ using EnterprisePatterns.Api.Users.Domain.Repository;
 using EnterprisePatterns.Api.Projects.Domain.Repository;
 using Common.Application;
 using EnterprisePatterns.Api.Common.Application.Enum;
+using EnterprisePatterns.Api.Common.Domain.Specification;
+using EnterprisePatterns.Api.Customers.Infrastructure.Persistence.NHibernate.Specification;
 
 namespace EnterprisePatterns.Api.Controllers
 {
@@ -47,12 +49,14 @@ namespace EnterprisePatterns.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Customers([FromQuery] int page = 0, [FromQuery] int size = 5){
+        public IActionResult Customers([FromQuery] int page = 0, [FromQuery] int size = 5, [FromQuery] bool peruvianOnly = false)
+        {
             bool uowStatus = false;
             try
             {
+                Specification<Customer> specification = GetCustomerSpecification(peruvianOnly);
                 uowStatus = _unitOfWork.BeginTransaction();
-                List<Customer> customers = _customerRepository.GetList(page,size);
+                List<Customer> customers = _customerRepository.GetList(specification, page, size);
                 _unitOfWork.Commit(uowStatus);
                 List<CustomerDto> customersDto = _customerAssembler.toDtoList(customers);
                 return StatusCode(StatusCodes.Status200OK, customersDto);
@@ -110,6 +114,16 @@ namespace EnterprisePatterns.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiStringResponseDto(message));
 
             }
+        }
+
+        private Specification<Customer> GetCustomerSpecification(bool peruvianOnly)
+        {
+            Specification<Customer> specification = Specification<Customer>.All;
+
+            if (peruvianOnly)
+                specification = specification.And(new PeruvianCustomersOnlySpecification());
+
+            return specification;
         }
 
     }

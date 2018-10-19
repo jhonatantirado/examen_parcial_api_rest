@@ -3,6 +3,7 @@ using EnterprisePatterns.Api.Customers.Domain.Repository;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using EnterprisePatterns.Api.Common.Domain.Specification;
 
 namespace EnterprisePatterns.Api.Customers.Infrastructure.Persistence.NHibernate.Repository
 {
@@ -13,6 +14,7 @@ namespace EnterprisePatterns.Api.Customers.Infrastructure.Persistence.NHibernate
         }
 
         public List<Customer> GetList(
+            Specification<Customer> specification,
             int page = 0,
             int pageSize = 5)
         {
@@ -22,6 +24,7 @@ namespace EnterprisePatterns.Api.Customers.Infrastructure.Persistence.NHibernate
             {
                 uowStatus = _unitOfWork.BeginTransaction();
                 customers = _unitOfWork.GetSession().Query<Customer>()
+                    .Where(specification.ToExpression())
                     .Skip(page * pageSize)
                     .Take(pageSize)
                     .ToList();
