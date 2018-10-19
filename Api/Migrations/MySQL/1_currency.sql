@@ -5,6 +5,6 @@ CREATE TABLE currency (
   UNIQUE KEY currency_id_UNIQUE (currency_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO currency(iso_code) VALUES('PEN');
-INSERT INTO currency(iso_code) VALUES('USD');
-INSERT INTO currency(iso_code) VALUES('EUR');
+INSERT INTO currency(currency_id,iso_code) VALUES(604,'PEN');
+INSERT INTO currency(currency_id,iso_code) VALUES(840,'USD');
+INSERT INTO currency(currency_id,iso_code) VALUES(978,'EUR');

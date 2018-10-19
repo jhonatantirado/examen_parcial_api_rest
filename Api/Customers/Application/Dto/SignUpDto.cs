@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnterprisePatterns.Api.Common.Application.Enum;
+using System;
 
 namespace EnterprisePatterns.Api.Customers.Application.Dto
 {
@@ -9,7 +10,7 @@ namespace EnterprisePatterns.Api.Customers.Application.Dto
         public string Password { get; set; }
         public string ProjectName { get; set; }
         public decimal Budget { get; set; }
-        public string CurrencyCode { get; set; }
+        public Currency CurrencyCode { get; set; }
 
     }
 }

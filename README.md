@@ -8,3 +8,4 @@ Implementado:
 - Patrón Dto
 - Patrón Notification
 - Patrón Assembler
+- Patrón Money

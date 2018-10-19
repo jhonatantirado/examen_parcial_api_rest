@@ -10,4 +10,4 @@ CREATE TABLE project (
   CONSTRAINT FK_project_currency_id FOREIGN KEY(currency_id) REFERENCES currency(currency_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT into project (project_name,budget,currency_id,customer_id) values ('TransMobile',1000000.00,2,1);
+INSERT into project (project_name,budget,currency_id,customer_id) values ('TransMobile',1000000.00,604,1);

@@ -1,4 +1,5 @@
-﻿using FluentNHibernate.Mapping;
+﻿using EnterprisePatterns.Api.Common.Application.Enum;
+using FluentNHibernate.Mapping;
 
 namespace EnterprisePatterns.Api.Projects.Infrastructure.Persistence.NHibernate.Mapping
 {
@@ -8,8 +9,12 @@ namespace EnterprisePatterns.Api.Projects.Infrastructure.Persistence.NHibernate.
         {
             Id(x => x.Id).Column("project_id");
             Map(x => x.ProjectName).Column("project_name");
-            Map(x => x.Budget).Column("budget");
-            Map(x => x.CurrencyId).Column("currency_id");
+            Component(x => x.Budget, m =>
+            {
+                m.Map(x => x.Amount, "budget");
+                m.Map(x => x.Currency, "currency_id").CustomType<Currency>();
+            });
+
             References(x => x.Customer, "customer_id");
         }
     }

@@ -13,6 +13,7 @@ using EnterprisePatterns.Api.Projects;
 using EnterprisePatterns.Api.Users.Domain.Repository;
 using EnterprisePatterns.Api.Projects.Domain.Repository;
 using Common.Application;
+using EnterprisePatterns.Api.Common.Application.Enum;
 
 namespace EnterprisePatterns.Api.Controllers
 {
@@ -91,8 +92,7 @@ namespace EnterprisePatterns.Api.Controllers
 
                 Project project = _projectAssembler.FromSignUpDtoToProject(signUpDto);
                 project.Customer = customer;
-                project.Budget = signUpDto.Budget;
-                project.CurrencyId = (long) Currency.EUR;
+
                 _projectRepository.Create(project);
 
                 _unitOfWork.Commit(uowStatus);
@@ -121,13 +121,4 @@ namespace EnterprisePatterns.Api.Controllers
         Assistant = 3,
 
     }
-
-    public enum Currency
-    {
-        PEN = 1,
-        USD = 2,
-        EUR = 3,
-
-    }
-
 }
