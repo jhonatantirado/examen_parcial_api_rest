@@ -34,6 +34,8 @@ namespace EnterprisePatterns.Api
             var serviceProvider = services.BuildServiceProvider();
             var mapper = serviceProvider.GetService<IMapper>();
             services.AddSingleton(new CustomerAssembler(mapper));
+            services.AddSingleton(new UserAssembler(mapper));
+            services.AddSingleton(new ProjectAssembler(mapper));
             services.AddScoped<IUnitOfWork, UnitOfWorkNHibernate>();
             services.AddTransient<ICustomerRepository, CustomerNHibernateRepository>((ctx) =>
             {

@@ -24,18 +24,25 @@ namespace EnterprisePatterns.Api.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IProjectRepository _projectRepository;
         private readonly CustomerAssembler _customerAssembler;
+        private readonly UserAssembler _userAssembler;
+        private readonly ProjectAssembler _projectAssembler;
+
 
         public CustomersController(IUnitOfWork unitOfWork, 
             ICustomerRepository customerRepository,
             IUserRepository userRepository,
             IProjectRepository projectRepository,
-            CustomerAssembler customerAssembler)
+            CustomerAssembler customerAssembler,
+            UserAssembler userAssembler,
+            ProjectAssembler projectAssembler)
         {
             _unitOfWork = unitOfWork;
             _customerRepository = customerRepository;
             _userRepository = userRepository;
             _projectRepository = projectRepository;
             _customerAssembler = customerAssembler;
+            _userAssembler = userAssembler;
+            _projectAssembler = projectAssembler;
         }
 
         [HttpGet]
@@ -77,15 +84,12 @@ namespace EnterprisePatterns.Api.Controllers
 
                 _customerRepository.Create(customer);
 
-                User user = new User();
-                user.Username = signUpDto.Username;
-                user.Password = signUpDto.Password;
+                User user = _userAssembler.FromSignUpDtoToUser(signUpDto);
                 user.RoleId = (long) Role.Owner;
                 user.Customer = customer;
                 _userRepository.Create(user);
 
-                Project project = new Project();
-                project.ProjectName = signUpDto.ProjectName;
+                Project project = _projectAssembler.FromSignUpDtoToProject(signUpDto);
                 project.Customer = customer;
                 project.Budget = signUpDto.Budget;
                 project.CurrencyId = (long) Currency.EUR;
